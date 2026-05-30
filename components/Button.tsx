@@ -40,15 +40,25 @@ hover:-translate-y-[2px]
       shadow-[0_8px_24px_rgba(15,23,42,0.05)]
     `,
 
-    ghost: `
-      bg-transparent
-      text-[var(--foreground-secondary)]
+   ghost: `
+  bg-white/55
 
-      border-transparent
+  text-[var(--foreground)]
 
-      hover:bg-white
-      hover:text-[var(--foreground)]
-    `,
+  border-[var(--border)]
+
+  backdrop-blur-xl
+
+  shadow-[0_4px_12px_rgba(17,24,39,0.04)]
+
+  hover:bg-white
+
+  hover:border-[rgba(139,115,85,0.18)]
+
+  hover:-translate-y-[2px]
+
+  hover:shadow-[0_10px_25px_rgba(17,24,39,0.08)]
+`,
 
     danger: `
       bg-red-600

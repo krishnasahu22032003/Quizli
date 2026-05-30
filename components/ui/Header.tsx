@@ -25,10 +25,11 @@ const navItems = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 24);
+      setScrolled(window.scrollY > 16);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -38,24 +39,21 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+    <header className="fixed inset-x-0 top-0 z-50 px-5 pt-4">
       <div
         className={`
           mx-auto
           max-w-7xl
           transition-all
           duration-500
-          ease-out
+          ease-[cubic-bezier(.22,1,.36,1)]
 
           ${
             scrolled
               ? `
-                rounded-[24px]
-                border
+                glass-card
                 border-[var(--border)]
-                bg-white/72
-                backdrop-blur-2xl
-                shadow-[0_12px_40px_rgba(15,23,42,0.08)]
+                shadow-[0_20px_60px_rgba(17,24,39,0.08)]
               `
               : `
                 bg-transparent
@@ -63,48 +61,62 @@ export default function Header() {
           }
         `}
       >
-        <div className="flex h-[72px] items-center justify-between px-5 md:px-8">
-          {/* Logo */}
+        <div className="flex h-[64px] items-center justify-between px-5 lg:px-7">
           <Link
             href="/"
-            className="flex items-center gap-3"
+            className="group flex items-center gap-3"
           >
-            <div
-              className="
-                relative
-                flex
-                h-11
-                w-11
-                items-center
-                justify-center
-                rounded-2xl
-
-                bg-gradient-to-br
-                from-[#5B5BD6]
-                via-[#6D5EF7]
-                to-[#7C3AED]
-
-                shadow-[0_12px_30px_rgba(91,91,214,0.30)]
-              "
-            >
+            <div className="relative">
               <div
                 className="
                   absolute
                   inset-0
                   rounded-2xl
-                  bg-white/10
+                  bg-[rgba(139,115,85,0.18)]
+                  blur-xl
+                  opacity-0
+                  transition-all
+                  duration-500
+                  group-hover:opacity-100
                 "
               />
 
-              <span className="relative text-lg font-bold text-white">
-                Q
-              </span>
+              <div
+                className="
+                  relative
+                  flex
+                  h-10
+                  w-10
+                  items-center
+                  justify-center
+                  rounded-[16px]
+                  border
+                  border-[rgba(139,115,85,0.18)]
+                  bg-gradient-to-br
+                  from-white
+                  to-[#f6f4ef]
+                  shadow-[0_10px_25px_rgba(17,24,39,0.06)]
+                  transition-all
+                  duration-500
+                  group-hover:-translate-y-[2px]
+                "
+              >
+                <span
+                  className="
+                    text-[20px]
+                    font-bold
+                    text-[var(--accent)]
+                  "
+                >
+                  Q
+                </span>
+              </div>
             </div>
 
             <div>
               <h1
                 className="
-                  text-lg
+                  text-[17px]
                   font-bold
                   tracking-[-0.04em]
                   text-[var(--foreground)]
@@ -116,58 +128,215 @@ export default function Header() {
               <p
                 className="
                   -mt-1
-                  text-[11px]
+                  text-[10px]
                   font-medium
-                  tracking-wide
+                  uppercase
+                  tracking-[0.18em]
                   text-[var(--foreground-muted)]
                 "
               >
-                AI LEARNING PLATFORM
+                AI Learning Platform
               </p>
             </div>
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className="
-                  rounded-xl
+                  group
+                  relative
                   px-4
-                  py-2
-
-                  text-sm
+                  py-2.5
+                  text-[14px]
                   font-medium
-
                   text-[var(--foreground-secondary)]
-
                   transition-all
                   duration-300
-
-                  hover:bg-white
-                  hover:text-[var(--foreground)]
-                  hover:shadow-sm
                 "
               >
-                {item.label}
-              </a>
+                <span className="relative z-10">
+                  {item.label}
+                </span>
+
+                <span
+                  className="
+                    absolute
+                    inset-0
+                    rounded-xl
+                    bg-white
+                    opacity-0
+                    scale-95
+                    transition-all
+                    duration-300
+                    group-hover:opacity-100
+                    group-hover:scale-100
+                    shadow-[0_8px_20px_rgba(17,24,39,0.04)]
+                  "
+                />
+
+                <span
+                  className="
+                    absolute
+                    bottom-0
+                    left-1/2
+                    h-[2px]
+                    w-0
+                    -translate-x-1/2
+                    rounded-full
+                    bg-[var(--accent)]
+                    transition-all
+                    duration-300
+                    group-hover:w-6
+                  "
+                />
+              </Link>
             ))}
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2">
             <Button
               variant="ghost"
-              className="hidden md:flex"
+              className="text-[14px] cursor-pointer"
             >
-              Sign In
+              Sign Up
             </Button>
 
-            <Button className="btn-shine">
+            <Button
+              className="
+              cursor-pointer
+                btn-shine
+                h-11
+                px-5
+                text-[14px]
+              "
+            >
               Get Started
             </Button>
+          </div>
+
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="
+              lg:hidden
+              flex
+              h-10
+              w-10
+              items-center
+              justify-center
+              rounded-xl
+              border
+              border-[var(--border)]
+              bg-white/70
+              backdrop-blur-xl
+            "
+          >
+            <div className="flex flex-col gap-[4px]">
+              <span
+                className={`
+                  h-[2px]
+                  w-5
+                  bg-[var(--foreground)]
+                  transition-all
+                  duration-300
+                  ${
+                    menuOpen
+                      ? "translate-y-[6px] rotate-45"
+                      : ""
+                  }
+                `}
+              />
+
+              <span
+                className={`
+                  h-[2px]
+                  w-5
+                  bg-[var(--foreground)]
+                  transition-all
+                  duration-300
+                  ${
+                    menuOpen
+                      ? "opacity-0"
+                      : ""
+                  }
+                `}
+              />
+
+              <span
+                className={`
+                  h-[2px]
+                  w-5
+                  bg-[var(--foreground)]
+                  transition-all
+                  duration-300
+                  ${
+                    menuOpen
+                      ? "-translate-y-[6px] -rotate-45"
+                      : ""
+                  }
+                `}
+              />
+            </div>
+          </button>
+        </div>
+
+        <div
+          className={`
+            lg:hidden
+            overflow-hidden
+            transition-all
+            duration-300
+            ease-out
+            ${
+              menuOpen
+                ? "max-h-[500px] opacity-100"
+                : "max-h-0 opacity-0"
+            }
+          `}
+        >
+          <div className="border-t border-[var(--border)] px-5 py-4">
+            <div className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="
+                    rounded-xl
+                    px-4
+                    py-3
+                    text-sm
+                    font-medium
+                    text-[var(--foreground-secondary)]
+                    transition-all
+                    duration-300
+                    hover:bg-white
+                  "
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-4 flex flex-col gap-3">
+              <Button
+                variant="ghost"
+                className="w-full"
+              >
+                Sign In
+              </Button>
+
+              <Button
+                className="
+                  btn-shine
+                  w-full
+                "
+              >
+                Get Started
+              </Button>
+            </div>
           </div>
         </div>
       </div>
