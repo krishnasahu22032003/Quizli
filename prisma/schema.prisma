@@ -41,6 +41,7 @@ model User {
   id            String    @id                @default(cuid()) 
   username      String    @db.VarChar(250)   
   email         String?   @unique            @db.VarChar(256)
+  password      String    @db.VarChar(250)
   emailVerified DateTime? 
   accounts      Account[]
   sessions      Session[]

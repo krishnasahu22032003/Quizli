@@ -3,6 +3,15 @@ import ENV_SECRETS from "./ENV_SECRETS";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/app/lib/prisma";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
+
+interface Credential {
+
+  email: string,
+  password: string
+
+};
 
 declare module 'next-auth' {
 
@@ -37,7 +46,11 @@ export const authOptions: NextAuthOptions = {
 
     jwt: async ({ token }) => {
 
-      const user = await prisma.user.findFirst({
+      if(!token.email){
+        return token ;
+      };
+
+      const user = await prisma.user.findUnique({
         where: {
           email: token?.email
         }
@@ -56,7 +69,7 @@ export const authOptions: NextAuthOptions = {
 
       if (token) {
 
-        session.user.email = token.email
+        session.user.email = token.email as string
         session.user.name = token.name
         session.user.id = token.id
 
@@ -67,17 +80,53 @@ export const authOptions: NextAuthOptions = {
 
   },
 
-secret: ENV_SECRETS.NEXTAUTH_SECRET,
+  secret: ENV_SECRETS.NEXTAUTH_SECRET,
 
-adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma),
 
-providers:[
+  providers: [
 
-  GoogleProvider({
-     clientId: ENV_SECRETS.Google_clientId as string , 
-    clientSecret:ENV_SECRETS.Google_clientSecret as string ,
-  })
+    GoogleProvider({
+      clientId: ENV_SECRETS.Google_clientId as string,
+      clientSecret: ENV_SECRETS.Google_clientSecret as string,
+    }),
 
-]
+    CredentialsProvider({
+
+      name: "credentials",
+
+      credentials: {
+        email: {},
+        password: {}
+      },
+
+      async authorize(  credentials: Record<string, string> | undefined) {
+
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        };
+
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email
+          }
+        });
+
+        if (!user) {
+          return null;
+        };
+
+        const isValid = await bcrypt.compare(credentials.password, user.password);
+
+        if (!isValid) {
+          return null;
+        };
+
+        return user;
+      },
+
+    })
+
+  ]
 
 } 
