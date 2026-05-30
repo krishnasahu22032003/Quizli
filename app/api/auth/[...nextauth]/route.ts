@@ -1,1 +1,1 @@
-import { handlers } from "@/auth";
+import { handlers } from "@/lib/auth";
