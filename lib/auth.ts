@@ -6,13 +6,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
-interface Credential {
-
-  email: string,
-  password: string
-
-};
-
 declare module 'next-auth' {
 
   interface Session extends DefaultSession {
@@ -46,8 +39,8 @@ export const authOptions: NextAuthOptions = {
 
     jwt: async ({ token }) => {
 
-      if(!token.email){
-        return token ;
+      if (!token.email) {
+        return token;
       };
 
       const user = await prisma.user.findUnique({
@@ -100,7 +93,7 @@ export const authOptions: NextAuthOptions = {
         password: {}
       },
 
-      async authorize(  credentials: Record<string, string> | undefined) {
+      async authorize(credentials: Record<string, string> | undefined) {
 
         if (!credentials?.email || !credentials?.password) {
           return null;
