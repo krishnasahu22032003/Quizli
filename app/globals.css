@@ -1,75 +1,86 @@
 @import "tailwindcss";
 
 :root {
+
   /* =========================
-     CORE PALETTE
+     FOUNDATION
      ========================= */
 
-  --background: #f5f6f8;
-  --background-soft: #eef1f5;
+  --background: #f7f6f3;
+  --background-soft: #f1f0ec;
   --background-elevated: #ffffff;
+
+  /* =========================
+     SURFACES
+     ========================= */
 
   --surface: rgba(255,255,255,0.72);
   --surface-solid: #ffffff;
-  --surface-muted: #f8f9fb;
-
-  --foreground: #0f172a;
-  --foreground-secondary: #475569;
-  --foreground-muted: #64748b;
-
-  --border: rgba(15,23,42,0.08);
-  --border-strong: rgba(15,23,42,0.14);
+  --surface-muted: #faf9f7;
 
   /* =========================
-     SIGNATURE ACCENTS
+     TYPOGRAPHY
      ========================= */
 
-  --accent: #5b5bd6;
-  --accent-hover: #4f46e5;
-  --accent-soft: rgba(91,91,214,0.12);
-
-  --violet: #7c3aed;
-  --violet-soft: rgba(124,58,237,0.12);
-
-  --cyan: #06b6d4;
-  --cyan-soft: rgba(6,182,212,0.10);
+  --foreground: #111827;
+  --foreground-secondary: #4b5563;
+  --foreground-muted: #6b7280;
 
   /* =========================
-     PREMIUM SHADOWS
+     BORDERS
+     ========================= */
+
+  --border: rgba(17,24,39,0.08);
+  --border-strong: rgba(17,24,39,0.14);
+
+  /* =========================
+     SIGNATURE ACCENT
+     ========================= */
+
+  --accent: #8b7355;
+  --accent-hover: #756043;
+  --accent-soft: rgba(139,115,85,0.12);
+
+  /* =========================
+     PREMIUM SUPPORT COLORS
+     ========================= */
+
+  --champagne: #c8b69b;
+  --bronze: #a68b68;
+  --graphite: #2f3542;
+  --sage: #7a8f84;
+
+  /* =========================
+     SHADOWS
      ========================= */
 
   --shadow-sm:
-    0 1px 2px rgba(15,23,42,0.04);
+    0 2px 4px rgba(17,24,39,0.04);
 
   --shadow-md:
-    0 10px 30px rgba(15,23,42,0.06);
+    0 12px 32px rgba(17,24,39,0.06);
 
   --shadow-lg:
-    0 25px 60px rgba(15,23,42,0.08);
+    0 30px 80px rgba(17,24,39,0.08);
 
   --shadow-xl:
-    0 40px 100px rgba(15,23,42,0.12);
+    0 50px 120px rgba(17,24,39,0.12);
 
   --shadow-glow:
-    0 0 60px rgba(91,91,214,0.15);
+    0 0 60px rgba(139,115,85,0.12);
 
   /* =========================
      RADII
      ========================= */
 
-  --radius-sm: 16px;
+  --radius-sm: 18px;
   --radius-md: 24px;
   --radius-lg: 32px;
   --radius-xl: 40px;
 }
 
-/* =========================
-   TAILWIND THEME TOKENS
-   ========================= */
-
 @theme {
   --color-background: var(--background);
-  --color-background-soft: var(--background-soft);
   --color-surface: var(--surface-solid);
   --color-surface-muted: var(--surface-muted);
 
@@ -80,18 +91,6 @@
   --color-border: var(--border);
 
   --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-
-  --color-violet: var(--violet);
-  --color-cyan: var(--cyan);
-}
-
-/* =========================
-   BASE
-   ========================= */
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -101,123 +100,114 @@ body {
   background:
     radial-gradient(
       circle at 0% 0%,
-      rgba(91,91,214,0.08),
+      rgba(139,115,85,0.08),
       transparent 35%
     ),
     radial-gradient(
-      circle at 100% 0%,
-      rgba(124,58,237,0.06),
-      transparent 35%
+      circle at 100% 20%,
+      rgba(200,182,155,0.08),
+      transparent 40%
     ),
     radial-gradient(
       circle at 50% 100%,
-      rgba(6,182,212,0.05),
-      transparent 40%
+      rgba(122,143,132,0.05),
+      transparent 45%
     ),
     var(--background);
 
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
 
-/* =========================
-   PREMIUM COMPONENTS
-   ========================= */
+.glass-card {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.85),
+      rgba(255,255,255,0.65)
+    );
 
-@layer utilities {
+  backdrop-filter: blur(24px);
 
-  .glass-card {
-    background: rgba(255,255,255,0.72);
-    backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.7);
 
-    border: 1px solid rgba(255,255,255,0.6);
+  box-shadow:
+    0 20px 40px rgba(17,24,39,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.9);
 
-    box-shadow:
-      0 10px 30px rgba(15,23,42,0.05),
-      inset 0 1px 0 rgba(255,255,255,0.8);
+  border-radius: 32px;
+}
 
-    border-radius: 32px;
-  }
+.card-premium {
+  position: relative;
 
-  .card-premium {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 32px;
+  background: white;
 
-    box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
 
-    transition:
-      transform .3s ease,
-      box-shadow .3s ease,
-      border-color .3s ease;
-  }
+  border-radius: 32px;
 
-  .card-premium:hover {
-    transform: translateY(-6px);
+  overflow: hidden;
 
-    border-color: rgba(91,91,214,0.15);
+  box-shadow: var(--shadow-md);
 
-    box-shadow:
-      var(--shadow-lg),
-      var(--shadow-glow);
-  }
+  transition: all .35s cubic-bezier(.22,1,.36,1);
+}
 
-  .gradient-text {
-    background:
-      linear-gradient(
-        135deg,
-        #0f172a,
-        #334155,
-        #5b5bd6
-      );
+.card-premium::before {
+  content: "";
 
-    -webkit-background-clip: text;
-    color: transparent;
-  }
+  position: absolute;
 
-  .hero-glow {
-    position: relative;
-  }
+  inset: 0;
 
-  .hero-glow::before {
-    content: "";
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139,115,85,0.04),
+      transparent
+    );
 
-    position: absolute;
-    inset: -60px;
+  opacity: 0;
 
-    background:
-      radial-gradient(
-        circle,
-        rgba(91,91,214,0.18),
-        transparent 70%
-      );
+  transition: opacity .35s ease;
+}
 
-    filter: blur(50px);
-    pointer-events: none;
-  }
+.card-premium:hover {
+  transform: translateY(-6px);
 
-  .btn-premium {
-    border-radius: 999px;
+  box-shadow:
+    var(--shadow-lg),
+    var(--shadow-glow);
+}
 
-    background:
-      linear-gradient(
-        135deg,
-        #5b5bd6,
-        #7c3aed
-      );
+.card-premium:hover::before {
+  opacity: 1;
+}
 
-    color: white;
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
 
-    box-shadow:
-      0 10px 25px rgba(91,91,214,0.25);
+.btn-shine::before {
+  content: "";
 
-    transition: all .3s ease;
-  }
+  position: absolute;
+  inset: 0;
 
-  .btn-premium:hover {
-    transform: translateY(-2px);
+  transform: translateX(-120%);
 
-    box-shadow:
-      0 18px 40px rgba(91,91,214,0.35);
-  }
+  background:
+    linear-gradient(
+      120deg,
+      transparent,
+      rgba(255,255,255,0.28),
+      transparent
+    );
+
+  transition: transform .9s ease;
+}
+
+.btn-shine:hover::before {
+  transform: translateX(120%);
 }

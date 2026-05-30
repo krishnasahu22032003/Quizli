@@ -14,16 +14,19 @@ export function Button({
 }: ButtonProps) {
   const variants = {
     primary: `
-      bg-[var(--accent)]
-      text-white
-      border-transparent
+bg-[var(--accent)]
+text-white
 
-      hover:bg-[var(--accent-hover)]
-      hover:-translate-y-[2px]
+border-transparent
 
-      shadow-[0_10px_30px_rgba(91,91,214,0.20)]
-      hover:shadow-[0_18px_40px_rgba(91,91,214,0.28)]
-    `,
+hover:bg-[var(--accent-hover)]
+
+shadow-[0_12px_30px_rgba(139,115,85,0.20)]
+
+hover:shadow-[0_20px_45px_rgba(139,115,85,0.30)]
+
+hover:-translate-y-[2px]
+`,
 
     secondary: `
       bg-white
