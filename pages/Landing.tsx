@@ -1,3 +1,4 @@
+import Features from "@/components/ui/Features";
 import Header from "@/components/ui/Header";
 import Hero from "@/components/ui/Hero";
 
@@ -8,8 +9,7 @@ export default function LandingPage() {
       <Header />
       <main>
   <Hero/>
-      <Hero/>
-      <Hero/>
+      <Features/>
       </main>
     
     </div>
