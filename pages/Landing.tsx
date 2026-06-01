@@ -1,6 +1,7 @@
 import Features from "@/components/ui/Features";
 import Header from "@/components/ui/Header";
 import Hero from "@/components/ui/Hero";
+import HowItWorks from "@/components/ui/HowItWorks";
 
 
 export default function LandingPage() {
@@ -8,10 +9,11 @@ export default function LandingPage() {
     <div className="relative min-h-screen overflow-hidden bg-background">
       <Header />
       <main>
-  <Hero/>
-      <Features/>
+        <Hero />
+        <Features />
+        <HowItWorks/>
       </main>
-    
+
     </div>
   );
 }
