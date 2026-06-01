@@ -24,43 +24,31 @@ const navItems = [
 ];
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
+
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 16);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () =>
-      window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
+return (
     <header className="fixed inset-x-0 top-0 z-50 px-5 pt-4">
-      <div
-        className={`
-          mx-auto
-          max-w-7xl
-          transition-all
-          duration-500
-          ease-[cubic-bezier(.22,1,.36,1)]
+<div
+  className="
+    mx-auto
+    max-w-7xl
 
-          ${
-            scrolled
-              ? `
-                glass-card
-                border-[var(--border)]
-                shadow-[0_20px_60px_rgba(17,24,39,0.08)]
-              `
-              : `
-                bg-transparent
-              `
-          }
-        `}
-      >
+    rounded-[32px]
+
+    backdrop-blur-xl
+
+    border
+    border-white/20
+
+    bg-[rgba(255,255,255,0.05)]
+
+    shadow-[0_20px_60px_rgba(17,24,39,0.06)]
+
+    transition-all
+    duration-500
+  "
+>
         <div className="flex h-[64px] items-center justify-between px-5 lg:px-7">
           <Link
             href="/"
