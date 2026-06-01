@@ -1,3 +1,4 @@
+import CTA from "@/components/ui/CTA";
 import Features from "@/components/ui/Features";
 import Header from "@/components/ui/Header";
 import Hero from "@/components/ui/Hero";
@@ -16,6 +17,7 @@ export default function LandingPage() {
         <HowItWorks/>
         <Pricing/>
         <Testimonials/>
+        <CTA/>
       </main>
 
     </div>

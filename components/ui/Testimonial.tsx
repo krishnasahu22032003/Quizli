@@ -201,7 +201,7 @@ export default function Testimonials() {
   const blobY2 = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
 
   return (
-    <section ref={sectionRef} className="relative py-24 sm:py-32 overflow-hidden">
+    <section id="testimonials" ref={sectionRef} className="relative py-24 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           style={{ y: blobY1 }}
