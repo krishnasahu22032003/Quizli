@@ -75,6 +75,7 @@ function FeatureCard({ feature }: { feature: (typeof features)[0] }) {
 
   return (
     <motion.div
+      id="features"
       ref={ref}
       initial={{ opacity: 0, y: 48, scale: 0.97 }}
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -89,7 +90,6 @@ function FeatureCard({ feature }: { feature: (typeof features)[0] }) {
         ${feature.size === "large" ? "lg:col-span-2 min-h-[300px]" : "min-h-[260px]"}
       `}
     >
-      {/* Hover gradient wash */}
       <div
         className="
           absolute inset-0
@@ -170,7 +170,7 @@ function FeatureCard({ feature }: { feature: (typeof features)[0] }) {
               group-hover:scale-110 group-hover:rotate-6
             "
           />
-          
+
           <div
             className="
               absolute inset-0 rounded-2xl

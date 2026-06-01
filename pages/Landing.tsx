@@ -2,6 +2,7 @@ import Features from "@/components/ui/Features";
 import Header from "@/components/ui/Header";
 import Hero from "@/components/ui/Hero";
 import HowItWorks from "@/components/ui/HowItWorks";
+import Pricing from "@/components/ui/Pricing";
 
 
 export default function LandingPage() {
@@ -12,6 +13,7 @@ export default function LandingPage() {
         <Hero />
         <Features />
         <HowItWorks/>
+        <Pricing/>
       </main>
 
     </div>

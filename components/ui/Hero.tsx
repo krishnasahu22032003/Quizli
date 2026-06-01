@@ -20,7 +20,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative overflow-hidden pt-20 pb-20 lg:pt-28 lg:pb-28">
+    <section id="/" className="relative overflow-hidden pt-20 pb-20 lg:pt-28 lg:pb-28">
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{

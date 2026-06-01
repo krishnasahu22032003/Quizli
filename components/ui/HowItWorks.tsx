@@ -145,7 +145,7 @@ export default function HowItWorks() {
     const blobY2 = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
 
     return (
-        <section ref={sectionRef} className="relative py-24 sm:py-32 overflow-hidden">
+        <section id="how-it-works" ref={sectionRef} className="relative py-24 sm:py-32 overflow-hidden">
 
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <motion.div
