@@ -1,5 +1,6 @@
 import CTA from "@/components/ui/CTA";
 import Features from "@/components/ui/Features";
+import Footer from "@/components/ui/Footer";
 import Header from "@/components/ui/Header";
 import Hero from "@/components/ui/Hero";
 import HowItWorks from "@/components/ui/HowItWorks";
