@@ -3,6 +3,7 @@ import Header from "@/components/ui/Header";
 import Hero from "@/components/ui/Hero";
 import HowItWorks from "@/components/ui/HowItWorks";
 import Pricing from "@/components/ui/Pricing";
+import Testimonials from "@/components/ui/Testimonial";
 
 
 export default function LandingPage() {
@@ -14,6 +15,7 @@ export default function LandingPage() {
         <Features />
         <HowItWorks/>
         <Pricing/>
+        <Testimonials/>
       </main>
 
     </div>

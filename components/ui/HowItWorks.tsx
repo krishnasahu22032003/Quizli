@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Sparkles, ScanSearch, TrendingUp, ArrowRight } from "lucide-react";
 
@@ -233,10 +233,10 @@ export default function HowItWorks() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr] gap-4 lg:gap-0 items-stretch lg:items-start">
                     {steps.map((step, i) => (
-                        <>
-                            <StepCard key={step.step} step={step} index={i} />
-                            {i < steps.length - 1 && <ConnectorLine key={`conn-${i}`} index={i} />}
-                        </>
+                        <React.Fragment key={step.step}>
+                            <StepCard step={step} index={i} />
+                            {i < steps.length - 1 && <ConnectorLine index={i} />}
+                        </React.Fragment>
                     ))}
                 </div>
 
