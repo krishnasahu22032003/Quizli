@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "../Button";
+import { useRouter } from "next/navigation";
 
 const navItems = [
   {
@@ -26,8 +27,9 @@ const navItems = [
 export default function Header() {
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter(); 
 
-return (
+ return (
     <header className="fixed inset-x-0 top-0 z-50 px-5 pt-4">
 <div
   className="
@@ -186,6 +188,7 @@ return (
 
           <div className="hidden lg:flex items-center gap-2">
             <Button
+              onClick={()=> router.push("/signup")}
               variant="ghost"
               className="text-[14px] cursor-pointer"
             >
