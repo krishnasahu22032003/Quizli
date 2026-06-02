@@ -427,7 +427,7 @@ export default function SignupPage() {
                     >
                         Already have an account?{" "}
                         <Link
-                            href="/login"
+                            href="/signin"
                             className="
                 font-semibold
                 text-[var(--accent)]
