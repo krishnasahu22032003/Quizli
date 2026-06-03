@@ -5,6 +5,8 @@ import prisma from "@/app/lib/prisma";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { SignInSchema } from "@/schemas/User.schema";
+import { NextResponse } from "next/server";
 
 declare module 'next-auth' {
 
@@ -95,13 +97,17 @@ export const authOptions: NextAuthOptions = {
 
       async authorize(credentials: Record<string, string> | undefined) {
 
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        };
+        const parsedData = SignInSchema.safeParse(credentials) ;
+
+        if(!parsedData.success){
+          return null
+        }
+
+      const {email , password} = parsedData.data ;
 
         const user = await prisma.user.findUnique({
           where: {
-            email: credentials.email
+            email
           }
         });
 
@@ -109,13 +115,17 @@ export const authOptions: NextAuthOptions = {
           return null;
         };
 
-        const isValid = await bcrypt.compare(credentials.password, user.password);
+        const isValid = await bcrypt.compare(password, user.password);
 
         if (!isValid) {
           return null;
         };
 
-        return user;
+        return {
+          id:user.id ,
+          name:user.username,
+          email:user.email
+        };
       },
 
     })
