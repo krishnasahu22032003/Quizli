@@ -12,8 +12,19 @@ import { SignUpUser } from "@/actions/signup";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import {signIn} from "next-auth/react" ;
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import {redirect} from "next/navigation";
 
-export default function SignupPage() {
+export default async function SignupPage() {
+
+    const session = await getServerSession(authOptions);
+
+    if(session){
+
+        redirect("/dashboard")
+    }
+
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
 
