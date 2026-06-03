@@ -8,6 +8,7 @@ import {
     CheckCircle2,
     XCircle,
 } from "lucide-react";
+import { SignUpUser } from "@/actions/signup";
 
 export default function SignupPage() {
     const [showPassword, setShowPassword] = useState(false);
