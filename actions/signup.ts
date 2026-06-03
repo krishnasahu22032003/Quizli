@@ -1,4 +1,3 @@
-import ENV_SECRETS from "@/lib/ENV_SECRETS";
 import axios from "axios";
 
 interface UserDetails {
@@ -29,7 +28,7 @@ export async function SignUpUser(userdata: UserDetails): Promise<SignupResponse 
 
     try {
 
-        const res = await axios.post<SignupResponse>("/api/signup", userdata);
+        const res = await axios.post<SignupResponse>("/api/auth/signup", userdata);
 
         return res.data;
 

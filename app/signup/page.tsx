@@ -9,16 +9,21 @@ import {
     XCircle,
 } from "lucide-react";
 import { SignUpUser } from "@/actions/signup";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import {signIn} from "next-auth/react" ;
 
 export default function SignupPage() {
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const [form, setForm] = useState({
-        name: "",
+        username: "",
         email: "",
         password: "",
         confirmPassword: "",
     });
+    const router = useRouter();
 
     const passwordRules = useMemo(
         () => ({
@@ -36,6 +41,48 @@ export default function SignupPage() {
     const passwordMatch = form.password.length > 0 && form.password === form.confirmPassword
 
     const canSubmit = passwordValid && passwordMatch;
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+
+        e.preventDefault();
+
+        if (!canSubmit || loading) return;
+
+        if (!form.username || !form.password || !form.email) {
+
+            toast.error("All fields required");
+            return
+        };
+
+        if (form.password !== form.confirmPassword) {
+
+            toast.error("Password does not match ");
+            return;
+        };
+
+        const cleandUsername = form.username.trim();
+        const cleandEmail = form.email.trim().toLowerCase();
+
+        try {
+
+            setLoading(true);
+
+            const response = await SignUpUser({
+
+                username: cleandUsername,
+                email: cleandEmail,
+                password: form.password
+            });
+
+            toast.success(response?.message || "Account created successfully");
+            router.push("/signin");
+        } catch (error: any) {
+            toast.error(error.message || "Something Went Wrong");
+        } finally {
+            setLoading(false);
+        };
+
+    };
 
     return (
         <main className="relative min-h-screen overflow-hidden flex items-center justify-center px-5 py-8">
@@ -135,20 +182,24 @@ export default function SignupPage() {
                     </p>
                 </div>
 
-                <div className="mt-6 space-y-4">
+<form
+    onSubmit={handleSubmit}
+    className="mt-6 space-y-4"
+>
                     <div>
                         <label className="mb-2 block text-sm font-medium">
                             Full Name
                         </label>
 
                         <input
+                        required
                             type="text"
                             placeholder="John Doe"
-                            value={form.name}
+                            value={form.username}
                             onChange={(e) =>
                                 setForm({
                                     ...form,
-                                    name: e.target.value,
+                                    username: e.target.value,
                                 })
                             }
                             className="
@@ -172,6 +223,7 @@ export default function SignupPage() {
                         </label>
 
                         <input
+                        required
                             type="email"
                             placeholder="john@example.com"
                             value={form.email}
@@ -203,6 +255,7 @@ export default function SignupPage() {
 
                         <div className="relative">
                             <input
+                            required
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Create a secure password"
                                 value={form.password}
@@ -361,29 +414,36 @@ export default function SignupPage() {
                     </div>
 
                     <button
-                        disabled={!canSubmit}
+                        type="submit"
+                        disabled={!canSubmit || loading}
                         className="
-              btn-shine
-              h-12
-              w-full
-              rounded-xl
-              bg-[var(--accent)]
-              font-medium
-              text-white
-              cursor-pointer
-              transition-all
-              hover:bg-[var(--accent-hover)]
-              disabled:opacity-50
-              disabled:cursor-not-allowed
-            "
+    btn-shine
+    h-12
+    w-full
+    rounded-xl
+    bg-[var(--accent)]
+    font-medium
+    text-white
+    transition-all
+    cursor-pointer 
+    disabled:opacity-50
+    disabled:cursor-not-allowed
+    flex items-center justify-center gap-2
+  "
                     >
+                        {loading && (
+                            <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                        )}
 
-                        {canSubmit
-                            ? "Create Account"
-                            : "Complete Required Fields"}
+                        {loading
+                            ? "Creating Account..."
+                            : canSubmit
+                                ? "Create Account"
+                                : "Complete Required Fields"}
                     </button>
-
-                    <div className="relative">
+                   </form>
+<div>
+      <div className="relative">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-[var(--border)]" />
                         </div>
@@ -403,6 +463,8 @@ export default function SignupPage() {
                     </div>
 
                     <button
+                    type="button"
+                    onClick={()=>signIn("google")}
                         className="
               h-12
               w-full
@@ -437,8 +499,9 @@ export default function SignupPage() {
                             Sign In
                         </Link>
                     </p>
+</div>
+                  
                 </div>
-            </div>
         </main>
     );
 }

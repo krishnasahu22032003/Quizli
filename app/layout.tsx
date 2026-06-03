@@ -6,7 +6,7 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/ui/Footer";
-
+import { Toaster } from "sonner" ; 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-heading",
@@ -44,6 +44,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <main className="flex-1">
           {children}
+          <Toaster richColors position="top-center"/>
         </main>
 
         <Footer />

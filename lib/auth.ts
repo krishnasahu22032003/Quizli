@@ -97,13 +97,13 @@ export const authOptions: NextAuthOptions = {
 
       async authorize(credentials: Record<string, string> | undefined) {
 
-        const parsedData = SignInSchema.safeParse(credentials) ;
+        const parsedData = SignInSchema.safeParse(credentials);
 
-        if(!parsedData.success){
+        if (!parsedData.success) {
           return null
         }
 
-      const {email , password} = parsedData.data ;
+        const { email, password } = parsedData.data;
 
         const user = await prisma.user.findUnique({
           where: {
@@ -115,6 +115,11 @@ export const authOptions: NextAuthOptions = {
           return null;
         };
 
+        if (!user.password) {
+          return null;
+        };
+
+
         const isValid = await bcrypt.compare(password, user.password);
 
         if (!isValid) {
@@ -122,9 +127,9 @@ export const authOptions: NextAuthOptions = {
         };
 
         return {
-          id:user.id ,
-          name:user.username,
-          email:user.email
+          id: user.id,
+          name: user.username,
+          email: user.email
         };
       },
 
