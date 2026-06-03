@@ -3,10 +3,64 @@
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  const canSubmit = !!email.trim() && !!password.trim();
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+
+    e.preventDefault();
+
+    if (loading) return;
+
+    if (!email || !password) {
+
+      toast.error("All fields Required");
+      return
+
+    };
+
+    const cleandEmail = email.trim().toLowerCase();
+
+    try {
+
+      setLoading(true);
+
+      const res = await signIn("credentials", {
+        email: cleandEmail,
+        password,
+        redirect: false,
+      });
+
+      if (res?.error) {
+        toast.error("Invalid credentials");
+        return;
+      }
+
+      toast.success("User signed in successfully");
+
+      router.push("/dashboard");
+      router.refresh();
+
+    } catch (error: any) {
+
+      toast.error(error.message || "Something Went Wrong");
+
+    } finally {
+      setLoading(false);
+    };
+
+  };
 
   return (
     <main className="relative min-h-screen overflow-hidden flex items-center justify-center px-5 py-8">
@@ -106,13 +160,16 @@ export default function SignInPage() {
           </p>
         </div>
 
-        <div className="mt-8 space-y-4">
+        <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
+
           <div>
             <label className="mb-2 block text-sm font-medium">
               Email Address
             </label>
 
             <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               placeholder="john@example.com"
               className="
@@ -137,6 +194,8 @@ export default function SignInPage() {
 
             <div className="relative">
               <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 className="
@@ -176,9 +235,11 @@ export default function SignInPage() {
             </div>
           </div>
 
-  
+
 
           <button
+            type="submit"
+            disabled={!canSubmit || loading}
             className="
               btn-shine
               h-12
@@ -190,10 +251,22 @@ export default function SignInPage() {
               text-white
               transition-all
               hover:bg-[var(--accent-hover)]
+               disabled:opacity-50
+  disabled:cursor-not-allowed
             "
           >
-            Sign In
+
+  {loading
+    ? "Signing In..."
+    : canSubmit
+      ? "Sign In"
+      : "Enter Email & Password"}
+
           </button>
+
+        </form>
+        <div className="mt-8 space-y-4">
+
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -215,6 +288,7 @@ export default function SignInPage() {
           </div>
 
           <button
+            onClick={() => signIn("google")}
             className="
               h-12
               w-full
