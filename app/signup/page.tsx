@@ -475,7 +475,7 @@ export default async function SignupPage() {
 
                     <button
                     type="button"
-                    onClick={()=>signIn("google")}
+                    onClick={()=>signIn("google" , {callbackUrl:"/dashboard"})}
                         className="
               h-12
               w-full

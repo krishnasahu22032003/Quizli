@@ -6,7 +6,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { SignInSchema } from "@/schemas/User.schema";
-import { NextResponse } from "next/server";
 
 declare module 'next-auth' {
 
@@ -31,6 +30,10 @@ declare module 'next-auth/jwt' {
 
 export const authOptions: NextAuthOptions = {
 
+  pages: {
+    signIn: "/signin",
+  },
+
   session: {
 
     strategy: "jwt"
@@ -39,7 +42,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
 
-    jwt: async ({ token }) => {
+    jwt: async ({ token , User }) => {
 
       if (!token.email) {
         return token;
