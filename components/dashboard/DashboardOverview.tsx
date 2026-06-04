@@ -4,7 +4,7 @@ type Props = {}
 
 const DashboardOverview = (user: any) => {
   return (
-    <div>DashboardOverview</div>
+    <div></div>
   )
 }
 

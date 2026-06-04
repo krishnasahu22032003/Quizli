@@ -7,7 +7,7 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/ui/Footer";
+import Footer from "@/components/landing/Footer";
 import { Toaster } from "sonner" ; 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
