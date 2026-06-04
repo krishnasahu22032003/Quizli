@@ -1,8 +1,9 @@
+import DashboardHeader from "@/components/DashboardHeader"
 
 const page = () => {
   return (
-    <div>
-      dashboard 
+    <div className="min-h-screen">
+      <DashboardHeader/>
     </div>
   )
 }
