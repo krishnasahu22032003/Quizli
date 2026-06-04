@@ -1,18 +1,23 @@
-"use client"
+"use client";
 
-import { SessionProvider } from 'next-auth/react'
-import React from 'react'
+import { SessionProvider } from "next-auth/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 
 type ChildrenType = {
-
-children : React.ReactNode
-
-}
-
-const Provider = ({children}:ChildrenType) => {
-  return (
-    <SessionProvider>{children}</SessionProvider>
-  )
+  children: React.ReactNode;
 };
 
-export default Provider ;
+const Provider = ({ children }: ChildrenType) => {
+  const [queryClient] = useState(() => new QueryClient());
+
+  return (
+    <SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
+    </SessionProvider>
+  );
+};
+
+export default Provider;
