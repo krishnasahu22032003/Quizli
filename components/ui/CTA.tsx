@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Sparkles, BookOpen, Brain } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const floatingCards = [
     { icon: Brain, label: "AI Quiz Generation", sub: "Topic: Quantum Physics", delay: 0 },
@@ -54,7 +55,7 @@ export default function CTA() {
     const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
     const blobY1 = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
     const blobY2 = useTransform(scrollYProgress, [0, 1], ["0%", "-18%"]);
-
+    const router = useRouter();
     return (
         <section ref={sectionRef} className="relative py-24 sm:py-32 overflow-hidden">
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -108,6 +109,7 @@ export default function CTA() {
 
                             <div ref={headingRef} className="flex-1 text-center lg:text-left">
                                 <motion.div
+                                
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={headingInView ? { opacity: 1, y: 0 } : {}}
                                     transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
@@ -117,9 +119,12 @@ export default function CTA() {
                                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent)] opacity-40" />
                                         <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--accent)]" />
                                     </span>
-                                    <span className="text-sm font-medium text-[var(--foreground-secondary)]">
+                                   
+<span className="text-sm font-medium text-[var(--foreground-secondary)]">
                                         Start for free today
                                     </span>
+                                  
+                                    
                                 </motion.div>
 
                                 <div className="mb-2">
@@ -173,6 +178,7 @@ export default function CTA() {
                                     className="flex flex-col gap-3 rounded-[22px] border border-[rgba(17,24,39,0.06)] bg-white/55 p-2 backdrop-blur-xl shadow-[0_14px_30px_rgba(17,24,39,0.04)] sm:flex-row w-fit mx-auto lg:mx-0"
                                 >
                                     <motion.button
+                                    onClick={()=>router.push("/signin")}
                                         whileHover={{ y: -2 }}
                                         whileTap={{ scale: 0.98 }}
                                         className="btn-shine cursor-pointer inline-flex items-center justify-center gap-2 rounded-[16px] bg-[var(--accent)] px-7 h-11 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(139,115,85,0.30)] hover:bg-[var(--accent-hover)] transition-colors"

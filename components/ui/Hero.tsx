@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "../Button";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
   const stats = [
@@ -18,6 +19,8 @@ export default function Hero() {
       label: "AI Assistance",
     },
   ];
+
+const router = useRouter();
 
   return (
     <section id="/" className="relative overflow-hidden pt-20 pb-20 lg:pt-28 lg:pb-28">
@@ -289,6 +292,7 @@ export default function Hero() {
               }}
             >
               <Button
+              onClick={()=> router.push("/signin")}
                 className="
                 cursor-pointer
                   btn-shine
