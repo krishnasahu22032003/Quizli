@@ -3,13 +3,9 @@ import { z } from "zod";
 export const quizCreationSchema = z.object({
   topic: z
     .string()
-    .trim()
-    .transform((value) => value.replace(/\s+/g, " "))
-    .pipe(
-      z.string()
-        .min(4, "Topic must be at least 4 characters long")
-        .max(100, "Topic cannot exceed 100 characters")
-    ),
+    .min(4, "Topic must be at least 4 characters long")
+    .max(100, "Topic cannot exceed 100 characters")
+    .transform((value) => value.trim().replace(/\s+/g, " ")),
 
   type: z.enum(["mcq", "open_ended"]),
 
