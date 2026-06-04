@@ -196,6 +196,7 @@ export default function Header() {
             </Button>
 
             <Button
+            onClick={()=>router.push("/signin")}
               className="
               cursor-pointer
                 btn-shine

@@ -7,14 +7,14 @@ import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-export default async function SignInPage() {
+export default function SignInPage() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const router = useRouter();
+  const router = useRouter() ;
 
   const canSubmit = !!email.trim() && !!password.trim();
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
+import Provider from "@/components/Provider";
 
 import {
   Space_Grotesk,
@@ -45,7 +45,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen flex flex-col">
         <main className="flex-1">
-         <SessionProvider> {children}</SessionProvider>
+         <Provider> {children}</Provider>
           <Toaster richColors position="top-center"/>
         </main>
 
