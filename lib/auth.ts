@@ -21,7 +21,8 @@ declare module 'next-auth/jwt' {
 
   interface JWT {
 
-    id: string
+    id: string,
+    name?: string | null;
 
   }
 
@@ -42,8 +43,7 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
 
-    jwt: async ({ token , User }) => {
-
+    jwt: async ({ token }) => {
       if (!token.email) {
         return token;
       };
@@ -68,7 +68,7 @@ export const authOptions: NextAuthOptions = {
       if (token) {
 
         session.user.email = token.email as string
-        session.user.name = token.name
+        session.user.name = token.name as string
         session.user.id = token.id
 
       };
