@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     });
 
     const { data } = await axios.post(
-      `${ENV_SECRETS.NEXTAUTH_SECRET as string}/api/questions`,
+      `${ENV_SECRETS.BACKEND_BASE_URL as string}/api/questions`,
       {
         amount,
         topic,
@@ -106,14 +106,12 @@ export async function POST(req: Request) {
           status: 400,
         }
       );
-    } else {
-      return NextResponse.json(
-        { error: "An unexpected error occurred." },
-        {
-          status: 500,
-        }
-      );
-    }
+  } else {
+  return NextResponse.json(
+    { error: "An unexpected error occurred." },
+    { status: 500 }
+  );
+}
   }
 }
 export async function GET(req: Request) {

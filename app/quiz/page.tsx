@@ -7,10 +7,10 @@ export const metadata = {
 };
 
 interface Props {
-  searchParams: { topic?: string };
+  searchParams: Promise<{ topic?: string }>; 
 }
-
-const Quiz = ({ searchParams }: Props) => {
+const Quiz = async ({ searchParams }: Props) => {
+const { topic } = await searchParams; 
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <DashboardHeader />
@@ -21,7 +21,7 @@ const Quiz = ({ searchParams }: Props) => {
           <div className="pointer-events-none absolute -bottom-24 -left-10 h-56 w-56 rounded-full bg-[rgba(139,115,85,0.07)] blur-3xl" />
 
           <div className="relative px-6 pb-8 sm:px-10 sm:pb-10 pt-8 sm:pt-10">
-            <QuizCreation topic={searchParams.topic ?? ""} />
+            <QuizCreation topic={topic ?? ""} />
           </div>
         </section>
       </main>

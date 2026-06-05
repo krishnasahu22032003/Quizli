@@ -2,23 +2,12 @@ import { strict_output } from "@/lib/ai";
 import { getQuestionsSchema } from "@/schemas/Question.schema";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 
 export const runtime = "nodejs";
 export const maxDuration = 500;
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   try {
-     const session = await getServerSession(authOptions);
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: "You must be logged in to create a game." },
-        {
-          status: 401,
-        }
-      );
-    }
 
     const body = await req.json();
     const { amount, topic, type } = getQuestionsSchema.parse(body);
@@ -48,6 +37,7 @@ export async function POST(req: Request, res: Response) {
           option3: "option3 with max length of 15 words",
         }
       );
+       console.log("strict_output result:", JSON.stringify(questions));
     }
     return NextResponse.json(
       {

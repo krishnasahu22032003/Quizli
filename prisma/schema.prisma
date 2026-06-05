@@ -62,7 +62,7 @@ model Game {
 
 id              String     @id                  @default(cuid())
 topic           String     @db.VarChar(250)
-timeCreated     DateTime   @default(now())
+timeStarted     DateTime   @default(now())
 userId          String
 user            User       @relation(fields: [userId] , references: [id] , onDelete: Cascade)
 timeEnded       DateTime?
