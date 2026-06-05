@@ -1,33 +1,27 @@
 import { DefaultSession, NextAuthOptions } from "next-auth";
 import ENV_SECRETS from "./ENV_SECRETS";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/app/lib/prisma";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { SignInSchema } from "@/schemas/User.schema";
+import { getServerSession } from "next-auth";
 
 declare module 'next-auth' {
-
   interface Session extends DefaultSession {
-
     user: {
       id: string;
     } & DefaultSession['user'];
   }
-};
-
-declare module 'next-auth/jwt' {
-
-  interface JWT {
-
-    id: string,
-    name?: string | null;
-
-  }
-
 }
 
+declare module 'next-auth/jwt' {
+  interface JWT {
+    id: string;
+    name?: string | null;
+  }
+}
 
 export const authOptions: NextAuthOptions = {
 
@@ -36,43 +30,37 @@ export const authOptions: NextAuthOptions = {
   },
 
   session: {
-
     strategy: "jwt"
-
   },
 
   callbacks: {
 
-    jwt: async ({ token }) => {
-      if (!token.email) {
-        return token;
-      };
+    // ✅ CHANGED: added `user` param to skip DB lookup on credentials sign-in
+  jwt: async ({ token, user }) => {
+  // Only hit the DB on first sign-in
+  if (user) {
+    token.id = user.id;
+    return token;
+  }
 
-      const user = await prisma.user.findUnique({
-        where: {
-          email: token?.email
-        }
-      })
+  if (!token.email) return token;
 
-      if (user) {
+  const db_user = await prisma.user.findFirst({
+    where: { email: token.email },
+  });
 
-        token.id = user.id;
+  if (db_user) token.id = db_user.id;
 
-      }
-
-      return token;
-    },
+  return token;
+},
 
     session: async ({ session, token }) => {
-
       if (token) {
-
-        session.user.email = token.email as string
-        session.user.name = token.name as string
-        session.user.id = token.id
-
-      };
-
+        session.user.email = token.email as string;
+        session.user.name = token.name as string;
+        session.user.id = token.id;
+        session.user.image = token.picture as string; 
+      }
       return session;
     }
 
@@ -90,44 +78,23 @@ export const authOptions: NextAuthOptions = {
     }),
 
     CredentialsProvider({
-
       name: "credentials",
-
       credentials: {
         email: {},
         password: {}
       },
-
       async authorize(credentials: Record<string, string> | undefined) {
-
         const parsedData = SignInSchema.safeParse(credentials);
-
-        if (!parsedData.success) {
-          return null
-        }
+        if (!parsedData.success) return null;
 
         const { email, password } = parsedData.data;
 
-        const user = await prisma.user.findUnique({
-          where: {
-            email
-          }
-        });
-
-        if (!user) {
-          return null;
-        };
-
-        if (!user.password) {
-          return null;
-        };
-
+        const user = await prisma.user.findUnique({ where: { email } });
+        if (!user) return null;
+        if (!user.password) return null;
 
         const isValid = await bcrypt.compare(password, user.password);
-
-        if (!isValid) {
-          return null;
-        };
+        if (!isValid) return null;
 
         return {
           id: user.id,
@@ -135,9 +102,9 @@ export const authOptions: NextAuthOptions = {
           email: user.email
         };
       },
-
     })
 
   ]
+};
 
-} 
+export const getAuthSession = () => getServerSession(authOptions);
