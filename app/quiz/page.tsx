@@ -15,41 +15,20 @@ const Quiz = ({ searchParams }: Props) => {
     <div className="min-h-screen bg-[var(--background)]">
       <DashboardHeader />
 
-      <main className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
-        {/* Page Header */}
-        <section className="relative overflow-hidden rounded-[36px] border border-white/20 bg-[rgba(255,255,255,0.05)] backdrop-blur-xl shadow-[0_30px_80px_rgba(17,24,39,0.08)]">
-          <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[rgba(139,115,85,0.12)] blur-3xl" />
-          <div className="absolute -bottom-32 left-0 h-64 w-64 rounded-full bg-[rgba(139,115,85,0.06)] blur-3xl" />
+      <main className="mx-auto max-w-3xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden rounded-[28px] border border-white/20 bg-[rgba(255,255,255,0.05)] backdrop-blur-xl shadow-[0_30px_80px_rgba(17,24,39,0.08)]">
+          <div className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-[rgba(139,115,85,0.12)] blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -left-10 h-56 w-56 rounded-full bg-[rgba(139,115,85,0.07)] blur-3xl" />
 
-          <div className="relative p-6 sm:p-8 lg:p-10">
-            <div className="inline-flex items-center gap-3 rounded-full border border-[var(--border)] bg-white/70 px-4 py-2 backdrop-blur-xl shadow-[0_10px_30px_rgba(17,24,39,0.04)]">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent)] opacity-40" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
-              </span>
-              <span className="text-sm font-medium text-[var(--foreground-secondary)]">
-                AI Quiz Generator
-              </span>
-            </div>
+          <div className="relative px-6 pt-8 pb-2 sm:px-10 sm:pt-10">
 
-            <h1 className="mt-6 text-4xl font-bold tracking-[-0.06em] text-[var(--foreground)] sm:text-5xl lg:text-6xl">
-              Create a{" "}
-              <span className="bg-gradient-to-r from-[var(--accent)] to-[var(--foreground)] bg-clip-text text-transparent">
-                Quiz
-              </span>
-            </h1>
+            <div className="mt-6 h-px w-full bg-gradient-to-r from-transparent via-[var(--border)] to-transparent" />
+          </div>
 
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--foreground-secondary)] sm:text-base">
-              Choose a topic, set your difficulty, and let AI generate a
-              personalized quiz tailored to your learning goals.
-            </p>
+          <div className="relative px-6 pb-8 sm:px-10 sm:pb-10">
+            <QuizCreation topic={searchParams.topic ?? ""} />
           </div>
         </section>
-
-        {/* Quiz Creation Form */}
-        <div className="mt-8">
-          <QuizCreation topic={searchParams.topic ?? ""} />
-        </div>
       </main>
     </div>
   );

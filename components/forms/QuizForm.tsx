@@ -84,7 +84,7 @@ const form = useForm<Output>({
 
       <div className="relative p-6 sm:p-8 lg:p-10">
         {/* Header */}
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between ">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/70 px-3 py-1 backdrop-blur-xl shadow-[0_10px_30px_rgba(17,24,39,0.04)]">
               <span className="relative flex h-2 w-2">
@@ -217,7 +217,7 @@ const form = useForm<Output>({
               <button
                 type="button"
                 onClick={() => form.setValue("type", "mcq")}
-                className="relative z-10 flex w-1/2 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-colors duration-200"
+                className="relative z-10 cursor-pointer flex w-1/2 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-colors duration-200"
               >
                 <CopyCheck
                   size={15}
@@ -241,7 +241,7 @@ const form = useForm<Output>({
               <button
                 type="button"
                 onClick={() => form.setValue("type", "open_ended")}
-                className="relative z-10 flex w-1/2 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-colors duration-200"
+                className="relative cursor-pointer z-10 flex w-1/2 items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition-colors duration-200"
               >
                 <BookOpen
                   size={15}
@@ -274,7 +274,7 @@ const form = useForm<Output>({
             whileHover={{ y: isPending ? 0 : -2 }}
             whileTap={{ scale: isPending ? 1 : 0.97 }}
             transition={{ duration: 0.2 }}
-            className="btn-shine w-full inline-flex items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-shine cursor-pointer w-full inline-flex items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <AnimatePresence mode="wait">
               {isPending ? (
