@@ -11,10 +11,10 @@ interface Props {
 }
 
 const Quiz = ({ searchParams }: Props) => {
+
   return (
     <div className="min-h-screen bg-[var(--background)]">
       <DashboardHeader />
-
       <main className="mx-auto max-w-3xl px-4 pb-12 pt-6 sm:px-6 lg:px-8">
         <section className="relative overflow-hidden rounded-[28px] border border-white/20 bg-[rgba(255,255,255,0.05)] backdrop-blur-xl shadow-[0_30px_80px_rgba(17,24,39,0.08)]">
           <div className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-[rgba(139,115,85,0.12)] blur-3xl" />

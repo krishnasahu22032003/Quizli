@@ -79,7 +79,7 @@ id                String     @id         @default(cuid())
 question          String 
 answer            String 
 gameId            String
-game              Game      @relation(fields: [gameId] , references: [id] )
+game              Game      @relation(fields: [gameId] , references: [id] , onDelete: Cascade )
 options           Json?
 percentageCorrect Float?
 isCorrect         Boolean?

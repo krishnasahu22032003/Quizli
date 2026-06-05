@@ -65,6 +65,7 @@ export default function SignInPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden flex items-center justify-center px-5 py-8">
+
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="
