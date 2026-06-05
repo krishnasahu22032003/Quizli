@@ -159,7 +159,7 @@ const form = useForm<Output>({
               <Hash size={14} className="text-[var(--accent)]" />
               Number of Questions
               <span className="ml-auto inline-flex items-center justify-center rounded-full border border-[var(--border)] bg-white/70 px-2.5 py-0.5 text-xs font-bold text-[var(--accent)]">
-                {amount}
+                 {Number.isNaN(amount) ? 0 : amount}
               </span>
             </label>
             <input

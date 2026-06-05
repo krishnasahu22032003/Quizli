@@ -14,7 +14,6 @@ export default function CreateQuizCard() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      onClick={() => router.push("/quiz")}
       className="group card-premium relative overflow-hidden cursor-pointer"
     >
       {/* Hover glow */}
