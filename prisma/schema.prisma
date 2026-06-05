@@ -45,6 +45,7 @@ model User {
   emailVerified DateTime? 
   accounts      Account[]
   sessions      Session[]
+  game          Game[]
 
 }
 
@@ -57,3 +58,48 @@ model VerificationToken {
 
 } 
 
+model Game {
+
+id              String     @id                  @default(cuid())
+topic           String     @db.VarChar(250)
+timeCreated     DateTime   @default(now())
+userId          String
+user            User       @relation(fields: [userId] , references: [id] , onDelete: Cascade)
+timeEnded       DateTime?
+gameType        GAME_TYPE
+questions       Questions[]
+
+@@index([userId] , name:"userId")
+
+}
+
+model Questions {
+
+id                String     @id         @default(cuid())
+question          String 
+answer            String 
+gameId            String
+game              Game      @relation(fields: [gameId] , references: [id] )
+options           Json?
+percentageCorrect Float?
+isCorrect         Boolean?
+questionType      GAME_TYPE
+userAnswer        String?
+
+@@index([gameId])
+}
+
+model Topic_Count {
+
+id       String @id @default(cuid())
+topic    String @unique
+count    Int
+
+}
+
+enum GAME_TYPE{
+
+mcq
+open_ended
+
+}
