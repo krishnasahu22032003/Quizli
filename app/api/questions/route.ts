@@ -1,5 +1,5 @@
 import { strict_output } from "@/lib/ai";
-import { getQuestionsSchema } from "@/schemas/questions";
+import { getQuestionsSchema } from "@/schemas/Question.schema";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
@@ -8,15 +8,6 @@ export const maxDuration = 500;
 
 export async function POST(req: Request, res: Response) {
   try {
-    const session = await getAuthSession();
-    // if (!session?.user) {
-    //   return NextResponse.json(
-    //     { error: "You must be logged in to create a game." },
-    //     {
-    //       status: 401,
-    //     }
-    //   );
-    // }
     const body = await req.json();
     const { amount, topic, type } = getQuestionsSchema.parse(body);
     let questions: any;
