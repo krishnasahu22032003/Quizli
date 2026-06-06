@@ -9,10 +9,11 @@ type Props = {
   }>;
 };
 
-const MCQPage = async ({ params: { gameId } }: Props) => {
+const MCQPage = async ({ params }: Props) => {
+  const { gameId } = await params;
 
-  
   const session = await getAuthSession();
+
   if (!session?.user) {
     return redirect("/");
   }
@@ -31,9 +32,11 @@ const MCQPage = async ({ params: { gameId } }: Props) => {
       },
     },
   });
+
   if (!game || game.gameType === "open_ended") {
     return redirect("/quiz");
   }
+
   return <MCQ game={game} />;
 };
 
