@@ -14,7 +14,7 @@ export default function CreateQuizCard() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group card-premium relative overflow-hidden cursor-pointer"
+      className="group card-premium relative overflow-hidden "
     >
       {/* Hover glow */}
       <div className="absolute inset-0 opacity-0 transition-all duration-500 group-hover:opacity-100 bg-gradient-to-br from-[rgba(139,115,85,0.07)] via-[rgba(200,182,155,0.03)] to-transparent rounded-[inherit]" />
@@ -69,7 +69,7 @@ export default function CreateQuizCard() {
           </span>
 
           <motion.button
-          onClick={()=>router.push("/quiz")}
+            onClick={()=>router.push("/quiz")}
             whileHover={{ x: 3 }}
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.2 }}

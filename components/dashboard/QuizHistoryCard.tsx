@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { History } from "lucide-react";
+import { ArrowRight, History } from "lucide-react";
 
 export default function QuizHistoryCard() {
   const router = useRouter();
@@ -13,8 +13,7 @@ export default function QuizHistoryCard() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      onClick={() => router.push("/history")}
-      className="group card-premium relative overflow-hidden cursor-pointer"
+      className="group card-premium relative overflow-hidden"
     >
       {/* Hover glow */}
       <div className="absolute inset-0 opacity-0 transition-all duration-500 group-hover:opacity-100 bg-gradient-to-br from-[rgba(200,182,155,0.07)] via-[rgba(139,115,85,0.03)] to-transparent rounded-[inherit]" />
@@ -68,19 +67,8 @@ export default function QuizHistoryCard() {
             className="cursor-pointer btn-shine inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold"
           >
             View History
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+         
+<ArrowRight size={12} strokeWidth={2.5} />
           </motion.button>
         </div>
       </div>

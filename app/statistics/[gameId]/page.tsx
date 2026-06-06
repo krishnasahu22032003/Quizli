@@ -8,22 +8,32 @@ import AccuracyCard from "@/components/statistics/AccuracyCard";
 import TimeTakenCard from "@/components/statistics/TimeTakenCard";
 import QuestionsList from "@/components/statistics/QuestionsList";
 import { Button } from "@/components/Button";
-
 type Props = {
-  params: {
+  params: Promise<{
     gameId: string;
-  };
+  }>;
 };
 
-const Statistics = async ({ params: { gameId } }: Props) => {
+const Statistics = async ({ params }: Props) => {
+  const { gameId } = await params;
+
   const session = await getAuthSession();
-  if (!session?.user) return redirect("/");
+
+  if (!session?.user) {
+    return redirect("/");
+  }
+
+  console.log("gameId:", gameId);
 
   const game = await prisma.game.findUnique({
     where: { id: gameId },
     include: { questions: true },
   });
-  if (!game) return redirect("/");
+
+  if (!game) {
+    return redirect("/");
+  }
+
 
   let accuracy = 0;
   if (game.gameType === "mcq") {
@@ -55,7 +65,7 @@ const Statistics = async ({ params: { gameId } }: Props) => {
           </div>
 
           <Link href="/dashboard">
-            <Button variant="ghost" className="gap-2 rounded-xl px-5 h-10 text-sm mt-3 sm:mt-0">
+            <Button variant="secondary" className="gap-2 cursor-pointer rounded-xl px-5 h-10 text-sm mt-3 sm:mt-0">
               <LucideLayoutDashboard className="w-4 h-4" />
               Back to Dashboard
             </Button>
