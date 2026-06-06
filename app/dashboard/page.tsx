@@ -14,7 +14,7 @@ export default async function Dashboard() {
     <div className="min-h-screen bg-[var(--background)]">
       <DashboardHeader />
 
-      <main className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-7xl mt-4 px-4 pb-8 sm:px-6 lg:px-8">
         {/* Hero / Welcome Section */}
         <section className="relative overflow-hidden rounded-[36px] border border-white/20 bg-[rgba(255,255,255,0.05)] backdrop-blur-xl shadow-[0_30px_80px_rgba(17,24,39,0.08)]">
           <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-[rgba(139,115,85,0.12)] blur-3xl" />
@@ -65,14 +65,10 @@ export default async function Dashboard() {
         </div>
 
         {/* Trending Topics + Recent Activity */}
-        <div className="mt-5 grid gap-5 lg:grid-cols-7">
-          <div className="lg:col-span-4">
-            <TrendingTopicsCard />
-          </div>
-          <div className="lg:col-span-3">
-            <RecentActivityCard />
-          </div>
-        </div>
+<div className="mt-5 grid gap-5 md:grid-cols-2">
+  <TrendingTopicsCard />
+  <RecentActivityCard />
+</div>
       </main>
     </div>
   );

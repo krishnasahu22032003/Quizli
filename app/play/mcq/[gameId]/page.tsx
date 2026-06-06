@@ -4,12 +4,14 @@ import { getAuthSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 type Props = {
-  params: {
+  params: Promise<{
     gameId: string;
-  };
+  }>;
 };
 
 const MCQPage = async ({ params: { gameId } }: Props) => {
+
+  
   const session = await getAuthSession();
   if (!session?.user) {
     return redirect("/");

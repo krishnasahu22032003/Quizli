@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { LucideLayoutDashboard, History as HistoryIcon } from "lucide-react";
-
 import HistoryComponent from "@/components/HistoryComponent";
 import { getAuthSession } from "@/lib/auth";
 import { Button } from "@/components/Button";
@@ -41,8 +40,8 @@ const History = async (props: Props) => {
 
           <Link href="/dashboard">
             <Button
-              variant="ghost"
-              className="h-10 rounded-xl px-5 text-sm gap-2"
+              variant="secondary"
+              className="h-10 rounded-xl cursor-pointer px-5 text-sm gap-2"
             >
               <LucideLayoutDashboard className="h-4 w-4" />
               Back to Dashboard

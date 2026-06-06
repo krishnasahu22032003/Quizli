@@ -9,7 +9,7 @@ type Props = {
   formattedTopics: { text: string; value: number }[];
 };
 
-const fontSizeMapper = (value: number) => Math.log2(value) * 5 + 16;
+const fontSizeMapper = (value: number) => Math.log2(value) * 8 + 22;
 
 export default function WordCloud({ formattedTopics }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -19,7 +19,7 @@ export default function WordCloud({ formattedTopics }: Props) {
     if (!svgRef.current || !formattedTopics.length) return;
 
     const width = svgRef.current.clientWidth || 600;
-    const height = 550;
+    const height = 320;
     const fill = "#1a1612";
     const hoverFill = "rgba(139,115,85,1)";
 
@@ -55,8 +55,8 @@ export default function WordCloud({ formattedTopics }: Props) {
           .style("font-size", (d: any) => `${d.size}px`)
           .style("font-family", "Times")
           .style("font-weight", (d: any) =>
-            d.size > 28 ? "700" : d.size > 22 ? "600" : "500"
-          )
+  d.size > 40 ? "700" : d.size > 30 ? "600" : "500"
+)
           .style("fill", fill)
           .style("cursor", "pointer")
           .style("transition", "fill 0.2s ease, opacity 0.2s ease")
@@ -89,5 +89,5 @@ export default function WordCloud({ formattedTopics }: Props) {
       .start();
   }, [formattedTopics]);
 
-  return <svg ref={svgRef} className="w-full" style={{ height: 550 }} />;
+  return <svg ref={svgRef} className="w-full justify-center" style={{ height: 320 }} />;
 }

@@ -61,6 +61,7 @@ export default function QuizHistoryCard() {
           </span>
 
           <motion.button
+          onClick={()=>router.push("/history")}
             whileHover={{ x: 3 }}
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.2 }}
