@@ -1,11 +1,47 @@
-import React from 'react'
+import React from "react";
+import WordCloud from "../ui/WordCloud";
+import prisma from "@/app/lib/prisma";
+import { Flame } from "lucide-react";
 
-type Props = {}
+type Props = {};
 
-const TrendingTopicsCard = (props: Props) => {
+const HotTopicsCard = async (props: Props) => {
+  const topics = await prisma.topic_Count.findMany({});
+  const formattedTopics = topics.map((topic) => ({
+    text: topic.topic,
+    value: topic.count,
+  }));
+
   return (
-    <div>TrendingTopicsCard</div>
-  )
-}
+    <div className="group card-premium relative overflow-hidden col-span-4 p-6 md:p-8">
+      <div className="absolute inset-0 opacity-0 transition-all duration-500 group-hover:opacity-100 bg-gradient-to-br from-[rgba(139,115,85,0.07)] via-[rgba(200,182,155,0.03)] to-transparent rounded-[inherit] pointer-events-none" />
+      <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-[rgba(139,115,85,0.08)] blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-export default TrendingTopicsCard
+      <div className="relative flex items-start justify-between mb-2">
+        <div>
+          <p className="text-xs font-medium uppercase tracking-widest text-[var(--foreground-muted)]">
+            Trending
+          </p>
+          <h2 className="text-lg font-bold tracking-tight text-[var(--foreground)] mt-0.5">
+            Hot Topics
+          </h2>
+        </div>
+        <div className="flex items-center justify-center w-10 h-10 rounded-2xl border border-[rgba(139,115,85,0.15)] bg-[rgba(139,115,85,0.06)]">
+          <Flame className="w-5 h-5 text-[var(--accent)]" strokeWidth={2} />
+        </div>
+      </div>
+
+      <p className="relative text-sm text-[var(--foreground-secondary)] mb-6">
+        Click on a topic to start a quiz on it.
+      </p>
+
+      <div className="relative h-px w-full bg-gradient-to-r from-transparent via-[rgba(139,115,85,0.15)] to-transparent mb-6" />
+
+      <div className="relative">
+        <WordCloud formattedTopics={formattedTopics} />
+      </div>
+    </div>
+  );
+};
+
+export default HotTopicsCard;
