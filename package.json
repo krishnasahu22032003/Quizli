@@ -24,6 +24,7 @@
     "d3-cloud": "^1.2.9",
     "dotenv": "^17.4.2",
     "framer-motion": "^12.40.0",
+    "keyword-extractor": "^0.0.28",
     "lucide-react": "^1.17.0",
     "next": "16.2.6",
     "next-auth": "^4.24.14",
