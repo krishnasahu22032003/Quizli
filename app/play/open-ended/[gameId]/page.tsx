@@ -2,7 +2,6 @@ import OpenEnded from "@/components/OpenEnded";
 import prisma from "@/app/lib/prisma";
 import { getAuthSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import React from "react";
 
 type Props = {
     params: {
@@ -34,7 +33,7 @@ const OpenEndedPage = async ({ params: { gameId } }: Props) => {
     if (!game || game.gameType === "mcq") {
         return redirect("/quiz");
     };
-    
+
     return <OpenEnded game={game} />;
 };
 
