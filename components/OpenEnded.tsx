@@ -134,7 +134,7 @@ console.log(game.questions.length);
                     </div>
 
                     <Link href={`/statistics/${game.id}`} className="mt-2">
-                        <Button variant="ghost" className="gap-2 rounded-xl px-6 h-11 text-sm">
+                        <Button variant="ghost" className="gap-2 rounded-xl px-6 h-11 text-sm cursor-pointer">
                             View Statistics
                             <BarChart className="w-4 h-4" />
                         </Button>
@@ -236,7 +236,7 @@ console.log(game.questions.length);
                     >
                         <Button
                             variant="ghost"
-                            className="h-11 px-7 rounded-xl text-sm font-semibold gap-2 border-[rgba(139,115,85,0.25)] bg-white/70 backdrop-blur-xl hover:bg-[rgba(139,115,85,0.06)] hover:border-[rgba(139,115,85,0.4)] shadow-[0_4px_12px_rgba(17,24,39,0.05)] transition-all duration-200"
+                            className="h-11 px-7 rounded-xl cursor-pointer text-sm font-semibold gap-2 border-[rgba(139,115,85,0.25)] bg-white/70 backdrop-blur-xl hover:bg-[rgba(139,115,85,0.06)] hover:border-[rgba(139,115,85,0.4)] shadow-[0_4px_12px_rgba(17,24,39,0.05)] transition-all duration-200"
                             disabled={isChecking || hasEnded}
                             onClick={handleNext}
                         >

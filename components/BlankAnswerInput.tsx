@@ -22,13 +22,15 @@ const BlankAnswerInput = ({ answer, setBlankAnswer }: Props) => {
     return shuffled.slice(0, 2);
   }, [answer]);
 
-  const answerWithBlanks = React.useMemo(() => {
-    const result = keywords.reduce((acc, curr) => {
-      return acc.replaceAll(curr, blank);
-    }, answer);
-    setBlankAnswer(result);
-    return result;
-  }, [answer, keywords, setBlankAnswer]);
+const answerWithBlanks = React.useMemo(() => {
+  return keywords.reduce((acc, curr) => {
+    return acc.replaceAll(curr, blank);
+  }, answer);
+}, [answer, keywords]);
+
+React.useEffect(() => {
+  setBlankAnswer(answerWithBlanks);
+}, [answerWithBlanks, setBlankAnswer]);
 
   const parts = answerWithBlanks.split(blank);
   const blankCount = parts.length - 1;
