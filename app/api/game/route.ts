@@ -63,12 +63,12 @@ console.dir(data, { depth: null });
 
       const manyData = data.questions.map((question: mcqQuestion) => {
         // mix up the options lol
-        const options = [
-          question.option1,
-          question.option2,
-          question.option3,
-          question.answer,
-        ].sort(() => Math.random() - 0.5);
+  const options = [
+  question.option1,
+  question.option2,
+  question.option3,
+  question.answer,
+].filter(Boolean).slice(0, 4).sort(() => Math.random() - 0.5);
         return {
           question: question.question,
           answer: question.answer,

@@ -35,31 +35,38 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
 
-    // ✅ CHANGED: added `user` param to skip DB lookup on credentials sign-in
-  jwt: async ({ token, user }) => {
-  // Only hit the DB on first sign-in
-  if (user) {
-    token.id = user.id;
-    return token;
-  }
+    jwt: async ({ token, user }) => {
+      // Only hit the DB on first sign-in
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.picture = user.image;
+        return token;
+      }
 
-  if (!token.email) return token;
+      if (!token.email) return token;
 
-  const db_user = await prisma.user.findFirst({
-    where: { email: token.email },
-  });
+      const db_user = await prisma.user.findFirst({
+        where: { email: token.email },
+      });
 
-  if (db_user) token.id = db_user.id;
+    
+  if (!db_user) return token;
 
-  return token;
-},
+  token.id = db_user.id;
+  token.name = db_user.username;
+  token.email = db_user.email;;
+
+      return token;
+    },
 
     session: async ({ session, token }) => {
       if (token) {
         session.user.email = token.email as string;
         session.user.name = token.name as string;
         session.user.id = token.id;
-        session.user.image = token.picture as string; 
+        session.user.image = token.picture as string;
       }
       return session;
     }

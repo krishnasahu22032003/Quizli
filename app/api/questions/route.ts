@@ -24,19 +24,19 @@ export async function POST(req: Request) {
         }
       );
     } else if (type === "mcq") {
-      questions = await strict_output(
-        "You are a helpful AI that is able to generate mcq questions and answers, the length of each answer should not be more than 15 words, store all answers and questions and options in a JSON array",
-        new Array(amount).fill(
-          `You are to generate a random hard mcq question about ${topic}`
-        ),
-        {
-          question: "question",
-          answer: "answer with max length of 15 words",
-          option1: "option1 with max length of 15 words",
-          option2: "option2 with max length of 15 words",
-          option3: "option3 with max length of 15 words",
-        }
-      );
+   questions = await strict_output(
+  "You are a helpful AI that generates MCQ questions. You must return EXACTLY 3 wrong options and 1 correct answer. Never add extra options. Never repeat the answer in the options.",
+  new Array(amount).fill(
+    `Generate a hard MCQ question about ${topic}. Return ONLY these fields: question, answer, option1, option2, option3. option1/2/3 must be WRONG answers, different from the answer field.`
+  ),
+  {
+    question: "question",
+    answer: "correct answer with max length of 15 words",
+    option1: "wrong option, max 15 words, must NOT equal answer",
+    option2: "wrong option, max 15 words, must NOT equal answer",
+    option3: "wrong option, max 15 words, must NOT equal answer",
+  }
+);
        console.log("strict_output result:", JSON.stringify(questions));
     }
     return NextResponse.json(

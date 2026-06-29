@@ -71,7 +71,7 @@ const MCQ = ({ game }: Props) => {
       onSuccess: ({ isCorrect }) => {
         if (isCorrect) {
           setStats((s) => ({ ...s, correct_answers: s.correct_answers + 1 }));
-          toast.success("Correct! You got it right!" );
+          toast.success("Correct! You got it right!");
         } else {
           setStats((s) => ({ ...s, wrong_answers: s.wrong_answers + 1 }));
           toast.error("Incorrect You got it wrong!");
@@ -104,7 +104,7 @@ const MCQ = ({ game }: Props) => {
 
   if (hasEnded) {
     return (
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.85, y: 24 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -138,7 +138,7 @@ const MCQ = ({ game }: Props) => {
           </div>
 
           <Link href={`/statistics/${game.id}`} className="mt-2">
-            <Button variant="ghost" className="gap-2 rounded-xl px-6 h-11 text-sm">
+            <Button variant="ghost" className="gap-2 rounded-xl px-6 h-11 text-sm cursor-pointer">
               View Statistics
               <BarChart className="w-4 h-4" />
             </Button>
@@ -149,165 +149,169 @@ const MCQ = ({ game }: Props) => {
   }
 
   return (
-    <div className="absolute -translate-x-1/2 -translate-y-1/2 md:w-[80vw] max-w-4xl w-[90vw] top-1/2 left-1/2">
-      <motion.div
-        initial={{ opacity: 0, y: 28 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col gap-6"
-      >
-        <div className="flex flex-row items-start justify-between gap-4">
-          <div className="flex flex-col gap-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(139,115,85,0.15)] bg-white/60 backdrop-blur-xl text-sm text-[var(--foreground-secondary)] shadow-[0_4px_12px_rgba(17,24,39,0.04)]">
-              <span className="text-xs font-medium uppercase tracking-widest text-[var(--foreground-muted)]">
-                Topic
-              </span>
-              <span className="font-semibold text-[var(--foreground)] tracking-tight">
-                {game.topic}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2 pl-1 text-[var(--foreground-secondary)]">
-              <div className="flex items-center justify-center w-7 h-7 rounded-full bg-[rgba(139,115,85,0.08)] border border-[rgba(139,115,85,0.12)]">
-                <Timer className="w-3.5 h-3.5 text-[var(--accent)]" />
-              </div>
-              <span className="text-sm font-mono font-medium tabular-nums tracking-tight">
-                {formatTimeDelta(differenceInSeconds(now, game.timeStarted))}
-              </span>
-            </div>
-          </div>
-
-          <MCQCounter
-            correct_answers={stats.correct_answers}
-            wrong_answers={stats.wrong_answers}
-          />
-        </div>
-
-        <div className="relative w-full h-1 rounded-full bg-[rgba(139,115,85,0.1)] overflow-hidden">
+    <div className="absolute inset-0 overflow-y-auto">
+      <div className="min-h-full flex items-start justify-center px-4 py-6 md:py-10">
+        <div className="w-full md:w-[80vw] max-w-4xl">
           <motion.div
-            className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[var(--accent)] to-[rgba(200,182,155,0.8)]"
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          />
-        </div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={questionIndex}
-            initial={{ opacity: 0, x: 40, scale: 0.98 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: -40, scale: 0.97 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="relative overflow-hidden rounded-[24px] border border-[rgba(139,115,85,0.15)] bg-white/65 backdrop-blur-2xl shadow-[0_12px_40px_rgba(17,24,39,0.06)] p-6 md:p-8"
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col gap-4"
           >
-            <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-[80px] bg-[rgba(200,182,155,0.15)] pointer-events-none -translate-y-1/2 translate-x-1/4" />
-
-            <div className="relative flex flex-row items-start gap-5">
-              <div className="flex-shrink-0 flex flex-col items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-[rgba(139,115,85,0.12)] to-[rgba(200,182,155,0.08)] border border-[rgba(139,115,85,0.15)]">
-                <span className="text-base font-bold tracking-tight text-[var(--foreground)]">
-                  {questionIndex + 1}
-                </span>
-                <div className="w-full px-2">
-                  <div className="h-px bg-[rgba(139,115,85,0.2)] w-full" />
+            <div className="flex flex-row items-start justify-between gap-4">
+              <div className="flex flex-col gap-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[rgba(139,115,85,0.15)] bg-white/60 backdrop-blur-xl text-sm text-[var(--foreground-secondary)] shadow-[0_4px_12px_rgba(17,24,39,0.04)]">
+                  <span className="text-xs font-medium uppercase tracking-widest text-[var(--foreground-muted)]">
+                    Topic
+                  </span>
+                  <span className="font-semibold text-[var(--foreground)] tracking-tight">
+                    {game.topic}
+                  </span>
                 </div>
-                <span className="text-xs text-[var(--foreground-muted)] font-medium">
-                  {game.questions.length}
-                </span>
+
+                <div className="flex items-center gap-2 pl-1 text-[var(--foreground-secondary)]">
+                  <div className="flex items-center justify-center w-7 h-7 rounded-full bg-[rgba(139,115,85,0.08)] border border-[rgba(139,115,85,0.12)]">
+                    <Timer className="w-3.5 h-3.5 text-[var(--accent)]" />
+                  </div>
+                  <span className="text-sm font-mono font-medium tabular-nums tracking-tight">
+                    {formatTimeDelta(differenceInSeconds(now, game.timeStarted))}
+                  </span>
+                </div>
               </div>
 
-              <p className="flex-1 text-[17px] leading-relaxed font-medium text-[var(--foreground)] pt-1">
-                {currentQuestion?.question}
+              <MCQCounter
+                correct_answers={stats.correct_answers}
+                wrong_answers={stats.wrong_answers}
+              />
+            </div>
+
+            <div className="relative w-full h-1 rounded-full bg-[rgba(139,115,85,0.1)] overflow-hidden">
+              <motion.div
+                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[var(--accent)] to-[rgba(200,182,155,0.8)]"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              />
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={questionIndex}
+                initial={{ opacity: 0, x: 40, scale: 0.98 }}
+                animate={{ opacity: 1, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: -40, scale: 0.97 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="relative overflow-hidden rounded-[24px] border border-[rgba(139,115,85,0.15)] bg-white/65 backdrop-blur-2xl shadow-[0_12px_40px_rgba(17,24,39,0.06)] p-5 md:p-6"
+              >
+                <div className="absolute top-0 right-0 w-48 h-48 rounded-full blur-[80px] bg-[rgba(200,182,155,0.15)] pointer-events-none -translate-y-1/2 translate-x-1/4" />
+
+                <div className="relative flex flex-row items-start gap-4">
+                  <div className="flex-shrink-0 flex flex-col items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-br from-[rgba(139,115,85,0.12)] to-[rgba(200,182,155,0.08)] border border-[rgba(139,115,85,0.15)]">
+                    <span className="text-base font-bold tracking-tight text-[var(--foreground)]">
+                      {questionIndex + 1}
+                    </span>
+                    <div className="w-full px-2">
+                      <div className="h-px bg-[rgba(139,115,85,0.2)] w-full" />
+                    </div>
+                    <span className="text-xs text-[var(--foreground-muted)] font-medium">
+                      {game.questions.length}
+                    </span>
+                  </div>
+
+                  <p className="flex-1 text-[16px] leading-relaxed font-medium text-[var(--foreground)] pt-1">
+                    {currentQuestion?.question}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="flex flex-col gap-2">
+              {options.map((option, index) => (
+                <motion.button
+                  key={`${index}-${option}`}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -2, scale: 1.005 }}
+                  whileTap={{ scale: 0.985 }}
+                  onClick={() => setSelectedChoice(index)}
+                  className={`
+                    group relative w-full flex items-center gap-3 px-4 py-3 rounded-[16px]
+                    border text-left transition-all duration-200 cursor-pointer
+                    ${selectedChoice === index
+                      ? "border-[rgba(139,115,85,0.45)] bg-[rgba(139,115,85,0.07)] shadow-[0_8px_24px_rgba(139,115,85,0.12)]"
+                      : "border-[rgba(139,115,85,0.12)] bg-white/55 backdrop-blur-xl hover:border-[rgba(139,115,85,0.28)] hover:bg-white/70 shadow-[0_4px_12px_rgba(17,24,39,0.04)]"
+                    }
+                  `}
+                >
+                  <div className={`
+                    flex-shrink-0 flex items-center justify-center w-7 h-7 rounded-xl
+                    text-xs font-bold tracking-tight transition-all duration-200
+                    ${selectedChoice === index
+                      ? "bg-[var(--accent)] text-white shadow-[0_4px_12px_rgba(139,115,85,0.3)]"
+                      : "bg-[rgba(139,115,85,0.08)] border border-[rgba(139,115,85,0.18)] text-[var(--foreground-secondary)]"
+                    }
+                  `}>
+                    {index + 1}
+                  </div>
+
+                  <span className={`
+                    text-[14px] font-medium leading-snug transition-colors duration-200
+                    ${selectedChoice === index
+                      ? "text-[var(--foreground)]"
+                      : "text-[var(--foreground-secondary)] group-hover:text-[var(--foreground)]"
+                    }
+                  `}>
+                    {option}
+                  </span>
+
+                  {selectedChoice === index && (
+                    <motion.div
+                      layoutId="selected-indicator"
+                      className="ml-auto flex-shrink-0 w-2 h-2 rounded-full bg-[var(--accent)]"
+                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    />
+                  )}
+                </motion.button>
+              ))}
+            </div>
+
+            <div className="flex flex-col items-center gap-2 pb-8 md:pb-4">
+              <motion.div
+                whileHover={{ y: -2, scale: 1.01 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Button
+                  variant="ghost"
+                  className="h-10 px-7 rounded-xl text-sm font-semibold gap-2"
+                  disabled={isChecking || hasEnded}
+                  onClick={handleNext}
+                >
+                  {isChecking
+                    ? <Loader2 className="w-4 h-4 animate-spin text-[var(--accent)]" />
+                    : null
+                  }
+                  {isChecking ? "Checking..." : "Next Question"}
+                  {!isChecking && <ChevronRight className="w-4 h-4" />}
+                </Button>
+              </motion.div>
+
+              <p className="text-xs text-[var(--foreground-muted)] tracking-wide">
+                Press{" "}
+                <kbd className="px-1.5 py-0.5 rounded-md border border-[rgba(139,115,85,0.2)] bg-[rgba(139,115,85,0.06)] font-mono text-[11px]">
+                  1–4
+                </kbd>{" "}
+                to select ·{" "}
+                <kbd className="px-1.5 py-0.5 rounded-md border border-[rgba(139,115,85,0.2)] bg-[rgba(139,115,85,0.06)] font-mono text-[11px]">
+                  Enter
+                </kbd>{" "}
+                to continue
               </p>
             </div>
           </motion.div>
-        </AnimatePresence>
-
-        <div className="flex flex-col gap-3">
-          {options.map((option, index) => (
-            <motion.button
-              key={option}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -2, scale: 1.005 }}
-              whileTap={{ scale: 0.985 }}
-              onClick={() => setSelectedChoice(index)}
-              className={`
-                group relative w-full flex items-center gap-4 px-5 py-4 rounded-[18px]
-                border text-left transition-all duration-200 cursor-pointer
-                ${selectedChoice === index
-                  ? "border-[rgba(139,115,85,0.45)] bg-[rgba(139,115,85,0.07)] shadow-[0_8px_24px_rgba(139,115,85,0.12)]"
-                  : "border-[rgba(139,115,85,0.12)] bg-white/55 backdrop-blur-xl hover:border-[rgba(139,115,85,0.28)] hover:bg-white/70 shadow-[0_4px_12px_rgba(17,24,39,0.04)]"
-                }
-              `}
-            >
-              <div className={`
-                flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-xl
-                text-xs font-bold tracking-tight transition-all duration-200
-                ${selectedChoice === index
-                  ? "bg-[var(--accent)] text-white shadow-[0_4px_12px_rgba(139,115,85,0.3)]"
-                  : "bg-[rgba(139,115,85,0.08)] border border-[rgba(139,115,85,0.18)] text-[var(--foreground-secondary)]"
-                }
-              `}>
-                {index + 1}
-              </div>
-
-              <span className={`
-                text-[15px] font-medium leading-snug transition-colors duration-200
-                ${selectedChoice === index
-                  ? "text-[var(--foreground)]"
-                  : "text-[var(--foreground-secondary)] group-hover:text-[var(--foreground)]"
-                }
-              `}>
-                {option}
-              </span>
-
-              {selectedChoice === index && (
-                <motion.div
-                  layoutId="selected-indicator"
-                  className="ml-auto flex-shrink-0 w-2 h-2 rounded-full bg-[var(--accent)]"
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                />
-              )}
-            </motion.button>
-          ))}
         </div>
-
-        <div className="flex flex-col items-center gap-3">
-          <motion.div
-            whileHover={{ y: -2, scale: 1.01 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Button
-              variant="ghost"
-              className="h-11 px-7 rounded-xl text-sm font-semibold gap-2"
-              disabled={isChecking || hasEnded}
-              onClick={handleNext}
-            >
-              {isChecking
-                ? <Loader2 className="w-4 h-4 animate-spin text-[var(--accent)]" />
-                : null
-              }
-              {isChecking ? "Checking..." : "Next Question"}
-              {!isChecking && <ChevronRight className="w-4 h-4" />}
-            </Button>
-          </motion.div>
-
-          <p className="text-xs text-[var(--foreground-muted)] tracking-wide">
-            Press{" "}
-            <kbd className="px-1.5 py-0.5 rounded-md border border-[rgba(139,115,85,0.2)] bg-[rgba(139,115,85,0.06)] font-mono text-[11px]">
-              1–4
-            </kbd>{" "}
-            to select ·{" "}
-            <kbd className="px-1.5 py-0.5 rounded-md border border-[rgba(139,115,85,0.2)] bg-[rgba(139,115,85,0.06)] font-mono text-[11px]">
-              Enter
-            </kbd>{" "}
-            to continue
-          </p>
-        </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
