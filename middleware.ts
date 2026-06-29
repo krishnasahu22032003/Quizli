@@ -5,15 +5,13 @@ export default withAuth(
   function middleware(req) {
     const token = req.nextauth.token;
 
-    // Logged in user trying to access auth pages
     if (
       token &&
       (req.nextUrl.pathname === "/signin" ||
-        req.nextUrl.pathname === "/signup")
+        req.nextUrl.pathname === "/signup" ||
+        req.nextUrl.pathname === "/")
     ) {
-      return NextResponse.redirect(
-        new URL("/dashboard", req.url)
-      );
+      return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
     return NextResponse.next();
@@ -25,7 +23,7 @@ export default withAuth(
           "/dashboard",
           "/profile",
           "/settings",
-            "/quiz",
+          "/quiz",
         ];
 
         const isProtected = protectedRoutes.some((route) =>
@@ -44,10 +42,11 @@ export default withAuth(
 
 export const config = {
   matcher: [
+    "/",
     "/dashboard/:path*",
     "/profile/:path*",
     "/settings/:path*",
-     "/quiz/:path*",
+    "/quiz/:path*",
     "/signin",
     "/signup",
   ],
