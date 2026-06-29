@@ -44,7 +44,7 @@ const QuestionsList = ({ questions }: Props) => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full min-w-[600px]">
           <thead>
             <tr className="border-b border-[rgba(139,115,85,0.08)]">
               <th className="px-6 py-3 text-left w-12">
