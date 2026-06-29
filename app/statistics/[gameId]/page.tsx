@@ -76,8 +76,8 @@ const Statistics = async ({ params }: Props) => {
           <ResultsCard accuracy={accuracy} />
           <AccuracyCard accuracy={accuracy} />
           <TimeTakenCard
-            timeEnded={new Date(game.timeEnded ?? 0)}
-            timeStarted={new Date(game.timeStarted ?? 0)}
+            timeEnded={new Date(game.timeEnded ?? new Date())}
+            timeStarted={new Date(game.timeStarted)}
           />
         </div>
 
