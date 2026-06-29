@@ -41,7 +41,7 @@ const AccuracyCard = ({ accuracy }: Props) => {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl font-bold tracking-tight text-[var(--foreground)]"
             >
-              {rounded}
+              {isNaN(rounded) ? "0" : rounded}
             </motion.span>
             <span className="text-lg font-medium text-[var(--foreground-secondary)] mb-1">
               %

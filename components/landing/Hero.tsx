@@ -314,6 +314,7 @@ const router = useRouter();
               }}
             >
               <Button
+              onClick={()=> router.push("/signin")}
                 variant="secondary"
                 className="
                 cursor-pointer

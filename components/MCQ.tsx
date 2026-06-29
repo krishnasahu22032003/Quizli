@@ -284,7 +284,7 @@ const MCQ = ({ game }: Props) => {
               >
                 <Button
                   variant="ghost"
-                  className="h-10 px-7 rounded-xl text-sm font-semibold gap-2"
+                  className="h-10 px-7 rounded-xl text-sm font-semibold gap-2 cursor-pointer"
                   disabled={isChecking || hasEnded}
                   onClick={handleNext}
                 >
