@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import stringSimilarity from "string-similarity";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { questionId, userInput } = checkAnswerSchema.parse(body);
@@ -49,16 +49,23 @@ export async function POST(req: Request, res: Response) {
         percentageSimilar,
       });
     }
-  } catch (error) {
-    if (error instanceof ZodError) {
-      return NextResponse.json(
-        {
-          message: error.issues,
-        },
-        {
-          status: 400,
-        }
-      );
-    }
+  }catch (error) {
+  if (error instanceof ZodError) {
+    return NextResponse.json(
+      { message: error.issues },
+      { status: 400 }
+    );
   }
+
+  console.error(error);
+
+  return NextResponse.json(
+    {
+      message: "Internal Server Error",
+    },
+    {
+      status: 500,
+    }
+  );
+}
 }
