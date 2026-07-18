@@ -65,15 +65,22 @@ export async function POST(req: Request) {
         status:201
      });
 
-     }catch(error){
-       console.log((error as Error).message) ;
-       return NextResponse.json({
-        success:false ,
-        message:"Internal server error"
-       },{
-        status:500
-       });
-    };
+     }catch (error) {
+  console.error("Full error:", error);
+
+  if (error instanceof Error) {
+    console.error("Name:", error.name);
+    console.error("Message:", error.message);
+    console.error("Stack:", error.stack);
+  }
+
+  return NextResponse.json(
+    {
+      error: String(error),
+    },
+    { status: 500 }
+  );
+}
 };
 
 
