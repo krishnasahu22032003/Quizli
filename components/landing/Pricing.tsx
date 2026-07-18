@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Check, ArrowRight, Sparkles, Zap } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const plans = [
   {
@@ -71,7 +72,7 @@ function PricingCard({
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-70px 0px" });
   const price = yearly ? plan.price.yearly : plan.price.monthly;
-
+  const router = useRouter();
   return (
     <motion.div
       ref={ref}
@@ -135,6 +136,7 @@ function PricingCard({
         </div>
 
         <button
+        onClick={()=>router.push("/signin")}
           className={`btn-shine w-full h-11 cursor-pointer rounded-[16px] text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 mb-8 ${
             plan.ctaVariant === "primary"
               ? "bg-[var(--accent)] text-white shadow-[0_8px_24px_rgba(139,115,85,0.30)] hover:bg-[var(--accent-hover)]"

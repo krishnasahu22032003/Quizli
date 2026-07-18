@@ -50,8 +50,7 @@ export async function POST(req: Request) {
         type,
       }
     );
-console.log("AI Response:");
-console.dir(data, { depth: null });
+
     if (type === "mcq") {
       type mcqQuestion = {
         question: string;

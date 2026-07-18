@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     option3: "wrong option, max 15 words, must NOT equal answer",
   }
 );
-       console.log("strict_output result:", JSON.stringify(questions));
+    
     }
     return NextResponse.json(
       {

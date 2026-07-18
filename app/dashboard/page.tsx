@@ -9,8 +9,6 @@ import { authOptions } from "@/lib/auth";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
- console.log(session)
-  console.log(session?.user.name)
 
   return (
     <div className="min-h-screen bg-[var(--background)]">

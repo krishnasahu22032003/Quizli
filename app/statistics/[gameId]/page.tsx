@@ -23,8 +23,6 @@ const Statistics = async ({ params }: Props) => {
     return redirect("/");
   }
 
-  console.log("gameId:", gameId);
-
   const game = await prisma.game.findUnique({
     where: { id: gameId },
     include: { questions: true },

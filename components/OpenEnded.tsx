@@ -30,12 +30,6 @@ const OpenEnded = ({ game }: Props) => {
         return game.questions[questionIndex];
     }, [questionIndex, game.questions]);
 
-    console.log({
-  questionIndex,
-  totalQuestions: game.questions.length,
-  currentQuestion,
-});
-
     const { mutate: endGame } = useMutation({
         mutationFn: async () => {
             const payload: z.infer<typeof endGameSchema> = { gameId: game.id };
@@ -98,10 +92,6 @@ const OpenEnded = ({ game }: Props) => {
     }, [handleNext]);
 
     const progress = ((questionIndex) / game.questions.length) * 100;
-
-    console.log(game);
-console.log(game.questions);
-console.log(game.questions.length);
 
     if (hasEnded) {
         return (
