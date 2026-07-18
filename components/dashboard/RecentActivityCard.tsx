@@ -3,7 +3,7 @@ import { Activity, History } from "lucide-react";
 import { getAuthSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import HistoryComponent from "../HistoryComponent";
-import prisma from "@/app/lib/prisma";
+import prisma from "@/lib/prisma";
 
 type Props = {};
 

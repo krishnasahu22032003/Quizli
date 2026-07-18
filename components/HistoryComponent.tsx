@@ -1,4 +1,4 @@
-import prisma from "@/app/lib/prisma";
+import prisma from "@/lib/prisma";
 import { Clock, CopyCheck, Edit2, ChevronRight } from "lucide-react";
 import Link from "next/link";
 

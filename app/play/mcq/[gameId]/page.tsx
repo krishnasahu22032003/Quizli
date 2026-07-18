@@ -1,5 +1,5 @@
 import MCQ from "@/components/MCQ";
-import prisma from "@/app/lib/prisma";
+import prisma from "@/lib/prisma";
 import { getAuthSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
