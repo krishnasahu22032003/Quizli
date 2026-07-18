@@ -1,7 +1,7 @@
 "use client";
 
 import { Hourglass } from "lucide-react";
-import { formatTimeDelta } from "@/lib/utils";
+import { formatTimeDelta } from "@/app/lib/utils";
 import { differenceInSeconds } from "date-fns";
 import { motion } from "framer-motion";
 

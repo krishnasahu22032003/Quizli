@@ -1,5 +1,5 @@
 "use client";
-import { cn, formatTimeDelta } from "@/lib/utils";
+import { cn, formatTimeDelta } from "@/app/lib/utils";
 import { Game, Questions } from "@prisma/client";
 import { differenceInSeconds } from "date-fns";
 import { BarChart, ChevronRight, Loader2, Timer, Sparkles } from "lucide-react";

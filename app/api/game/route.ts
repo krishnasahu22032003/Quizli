@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import prisma from "@/app/lib/prisma";
 import { getAuthSession } from "@/lib/auth";
 import { quizCreationSchema } from "@/schemas/Quiz.schema";
 import { NextResponse } from "next/server";

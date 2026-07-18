@@ -5,7 +5,7 @@ import { differenceInSeconds } from "date-fns";
 import Link from "next/link";
 import { BarChart, ChevronRight, Loader2, Timer, Sparkles } from "lucide-react";
 import { checkAnswerSchema , endGameSchema } from "@/schemas/Question.schema";
-import { formatTimeDelta } from "@/lib/utils";
+import { formatTimeDelta } from "@/app/lib/utils";
 import MCQCounter from "./MCQCounter";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";

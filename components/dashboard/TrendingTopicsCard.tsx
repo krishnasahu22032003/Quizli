@@ -1,6 +1,6 @@
 import React from "react";
 import WordCloud from "../ui/WordCloud";
-import prisma from "@/lib/prisma";
+import prisma from "@/app/lib/prisma";
 import { Flame, TrendingUp } from "lucide-react";
 
 type Props = {};
